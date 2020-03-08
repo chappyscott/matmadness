@@ -114,7 +114,8 @@ export class PoolService {
         poolTotalEntriesAllowed: null,
         poolOrganizer: '',
         poolOrganizerPhone: '',
-        poolDeadlineEpoch: ''
+        poolDeadlineEpoch: '',
+        eventLinkId: 0
     };
   }
 

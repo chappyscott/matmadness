@@ -78,7 +78,8 @@
           (change)='verifyAllWeightsSelected(mySelect1.value, 1)'>
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" [ngClass]="{'is-invalid': displayMessage.entryName }" value="{{pick}}">{{pick}}</option>
-          </select>          
+          </select>
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[0]!=''">You potentially have: {{verification_picks_names[0]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick1}}
           </span>
@@ -92,7 +93,8 @@
           (change)='verifyAllWeightsSelected(mySelect2.value, 2)'>
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
-          </select>          
+          </select>
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[1]!=''">You potentially have: {{verification_picks_names[1]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick2}}
           </span>
@@ -107,6 +109,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[2]!=''">You potentially have: {{verification_picks_names[2]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick3}}
           </span>
@@ -121,6 +124,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[3]!=''">You potentially have: {{verification_picks_names[3]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick4}}
           </span>
@@ -135,6 +139,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[4]!=''">You potentially have: {{verification_picks_names[4]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick5}}
           </span>
@@ -149,6 +154,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[5]!=''">You potentially have: {{verification_picks_names[5]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick6}}
           </span>
@@ -163,6 +169,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[6]!=''">You potentially have: {{verification_picks_names[6]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick7}}
           </span>
@@ -177,6 +184,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[7]!=''">You potentially have: {{verification_picks_names[7]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick8}}
           </span>
@@ -191,6 +199,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[8]!=''">You potentially have: {{verification_picks_names[8]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick9}}
           </span>
@@ -205,6 +214,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[9]!=''">You potentially have: {{verification_picks_names[9]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick10}}
           </span>
@@ -219,6 +229,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[10]!=''">You potentially have: {{verification_picks_names[10]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick11}}
           </span>
@@ -233,6 +244,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[11]!=''">You potentially have: {{verification_picks_names[11]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick12}}
           </span>
@@ -247,6 +259,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[12]!=''">You potentially have: {{verification_picks_names[12]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick13}}
           </span>
@@ -261,6 +274,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[13]!=''">You potentially have: {{verification_picks_names[13]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick14}}
           </span>
@@ -275,6 +289,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[14]!=''">You potentially have: {{verification_picks_names[14]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick15}}
           </span>
@@ -289,6 +304,7 @@
             <option value="" [disabled]="true">--Choose one weight--</option>
             <option *ngFor="let pick of weightClasses" value="{{pick}}">{{pick}}</option>
           </select>          
+          &nbsp;&nbsp; <span *ngIf="verification_picks_names[15]!=''">You potentially have: {{verification_picks_names[15]}}</span>  
           <span class="invalid-feedback">
             {{displayMessage.entryPick16}}
           </span>
@@ -326,3 +342,5 @@
        *ngIf="errorMessage">{{errorMessage}}
   </div>
 </div>
+
+<button (click)="updateFireIndexTest()">Inc. fool</button>

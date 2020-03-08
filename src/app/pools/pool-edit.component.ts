@@ -71,7 +71,8 @@ export class PoolEditComponent implements OnInit, AfterViewInit, OnDestroy {
       poolTotalEntriesAllowed: '',
       poolOrganizer: '',
       poolOrganizerPhone: '',
-      poolDeadlineEpoch: ''
+      poolDeadlineEpoch: '',
+      eventLinkId: ''
     });
 
     // Read the poolId from the route parameter
@@ -135,7 +136,8 @@ export class PoolEditComponent implements OnInit, AfterViewInit, OnDestroy {
       poolEntryAmount: this.pool.poolEntryAmount,
       poolTotalEntriesAllowed: this.pool.poolTotalEntriesAllowed,
       poolOrganizerPhone: this.pool.poolOrganizerPhone,
-      poolDeadlineEpoch: this.pool.poolDeadlineEpoch
+      poolDeadlineEpoch: this.pool.poolDeadlineEpoch,
+      eventLinkId: this.pool.eventLinkId
     });
   }
 

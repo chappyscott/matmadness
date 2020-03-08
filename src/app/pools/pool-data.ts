@@ -18,7 +18,8 @@ export class PoolData implements InMemoryDbService {
         poolTotalEntriesAllowed: '30', 
         poolOrganizer: 'Scott Chapman',
         poolOrganizerPhone: '4055551234',
-        poolDeadlineEpoch: ''
+        poolDeadlineEpoch: '',
+        eventLinkId: 1
       },
       {
         id: 2,
@@ -33,7 +34,8 @@ export class PoolData implements InMemoryDbService {
         poolTotalEntriesAllowed: '30', 
         poolOrganizer: 'Scott Chapman',
         poolOrganizerPhone: '4055551234',
-        poolDeadlineEpoch: ''
+        poolDeadlineEpoch: '',
+        eventLinkId: 1
       },
       {
         id: 3,
@@ -48,7 +50,8 @@ export class PoolData implements InMemoryDbService {
         poolTotalEntriesAllowed: '30', 
         poolOrganizer: 'Scott Chapman',
         poolOrganizerPhone: '4055551234',
-        poolDeadlineEpoch: ''
+        poolDeadlineEpoch: '',
+        eventLinkId: 1
       },
       {
         id: 4,
@@ -63,7 +66,8 @@ export class PoolData implements InMemoryDbService {
         poolTotalEntriesAllowed: '30', 
         poolOrganizer: 'Scott Chapman',
         poolOrganizerPhone: '4055551234',
-        poolDeadlineEpoch: ''
+        poolDeadlineEpoch: '',
+        eventLinkId: 1
       }
     ];
     return { pools };

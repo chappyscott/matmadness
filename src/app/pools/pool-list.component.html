@@ -37,6 +37,7 @@
                 </button>
               </th>
               <th>Pool Name</th>
+              <th>Pool Id</th>
               <th>Organizer</th>
               <th>Type</th>
               <th>Deadline</th>
@@ -62,7 +63,8 @@
                   {{ pool.poolName }}
                 </a>
               </td>
-              <td>{{ pool.poolOrganizer }}</td>
+              <td>{{pool.id}}</td>
+              <td>{{ pool.poolOrganizer }} for event:{{pool.eventLinkId}}</td>
               <td>{{ pool.poolType }}</td>
               <td>{{ pool.poolDeadlineDate }} {{ pool.poolDeadlineTime}}</td>
               <td>{{ pool.poolTotalEntriesAllowed}}</td>

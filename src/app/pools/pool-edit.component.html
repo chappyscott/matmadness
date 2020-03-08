@@ -8,7 +8,23 @@
           (ngSubmit)="savePool()"
           [formGroup]="poolForm">
 
-      <div class="form-group row mb-2">
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label"
+                   for="eventLinkIdId">Event Link:</label>
+            <div class="col-md-8">
+              <input class="form-control"
+                     id="eventLinkIdId"
+                     type="text"
+                     placeholder="Event Link (required)"
+                     formControlName="eventLinkId"
+                     [ngClass]="{'is-invalid': displayMessage.eventLinkId }" />
+              <span class="invalid-feedback">
+                {{displayMessage.eventLinkId}}
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="poolNameId">Pool Name:</label>
         <div class="col-md-8">

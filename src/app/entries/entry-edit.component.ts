@@ -3,36 +3,54 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subscription, fromEvent, merge } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
+
+import seeds from '../../assets/json/wrestlers-seeds.json';
 
 import { Entry } from './entry';
 import { EntryService } from './entry.service';
 
 import { GenericValidator } from '../shared/generic-validator';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import 'firebase/firestore';
+
+
+export interface IndexStore {
+  id?: string;
+  index: number;
+  name: string;
+  poolsId: number;
+};
 
 
 @Component({
   templateUrl: './entry-edit.component.html',
   styleUrls: ['./entry-edit.component.css']
 })
+
 export class EntryEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   pageTitle = 'Edit a entry';
   errorMessage: string;
   entryForm: FormGroup;
+  indexRef: AngularFirestoreCollection<IndexStore>;
+  index$: Observable<IndexStore[]>;
+  items: Observable<any[]>;
+  
   // cheat for now and just bruteforce running out of time.
   numberOfPicks: number [] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   weightClasses: string [] = ['125', '133', '141', '149','157', '165', '174', '184', '197', '285'];
   verification_array: string [] = ['125', '133', '141', '149','157', '165', '174', '184', '197', '285'];
   verification_picks: string [] = ['','','','','','','','','','','','','','','',''];
+  verification_picks_names: string [] = ['','','','','','','','','','','','','','','',''];
   entry: Entry;
   private sub: Subscription;
-  items: Observable<any[]>;
   poolsId: number;
-  autoindex: any[] = [];
+  autoindex: number;
+  autoid: string;
+  wSeeds = seeds;
+
 
   // Use with the generic validation message class
   displayMessage: { [key: string]: string } = {};
@@ -49,12 +67,21 @@ export class EntryEditComponent implements OnInit, AfterViewInit, OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               private entryService: EntryService,
-              firestore: AngularFirestore
+              firestore: AngularFirestore,
+              private afs: AngularFirestore
               ) {
     
     this.items = firestore.collection('picks').valueChanges();
     console.log("Items:", this.items);
     
+    this.indexRef = this.afs.collection<IndexStore>('numOfEntries');
+    this.index$ = this.indexRef.snapshotChanges().pipe(map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as IndexStore;
+        const id = action.payload.doc.id;
+        return { id, ...data };
+      });
+    }));
     
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
@@ -156,6 +183,7 @@ export class EntryEditComponent implements OnInit, AfterViewInit, OnDestroy {
       params => {
         this.poolsId = +params.get('poolsId');
         const id = +params.get('id');
+        console.log("1st poolsId:", this.poolsId, id);
         // I don't allow editing of entry for now.  Just pass 0.
         this.getEntry(id);
       }
@@ -242,25 +270,39 @@ export class EntryEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 saveFireEntry(): void {
+  console.log("POOLSID:", this.poolsId);
   if (this.entryForm.valid) {
     if (this.entryForm.dirty) {
-      console.log("poolsId:", this.poolsId);
-      this.entryService.getFireIndex(this.poolsId).subscribe({
-        next: entries => {
-          this.autoindex = entries;
-          console.log("Ent:", entries);
-          console.log("INDX:", entries[0].index);
+
+
+      let indexSubscription = this.index$.subscribe({
+        next: index => {
+          console.log('ID ALL: ', index);
+          for(let i=0; i < index.length; i++){
+            console.log("IDX:", index[i].poolsId, this.poolsId)
+            if (index[i].poolsId == this.poolsId){
+              console.log("MDE HR")
+              // this.autoid = index[i];
+              // this.autoindex = index[i];
+            }
+          }
         },
-        error: err => this.errorMessage = err
+        error(msg) {
+          console.log('Error Getting Location: ', msg);
+        }
+      //   ,
+      //   onComplete(){indexSubscription.unsubscribe();}
       });
-      // Todo: Need to change setTimeout to a Promise so the code can execute correctly.
-      // I need the index from the firestore database to set the new forms id.
-      setTimeout(() => {
+
       const p = { ...this.entry, ...this.entryForm.value };
-        this.entryService.createFireEntry(p, this.poolsId, this.autoindex[0].index);
-        this.onSaveComplete();
-      }, 2000);
-    } else {
+      this.entryService.createFireEntry(p, this.poolsId, 1);
+      this.entryService.updateFireIndex("y1S2XNMMwqh8vOOMrkgW");  // Get doc id from firestore
+      this.onSaveComplete();
+      
+
+
+
+      } else {
       this.onSaveComplete();
     }
   } else {
@@ -269,9 +311,41 @@ saveFireEntry(): void {
 }
 
 verifyAllWeightsSelected(value:string, position:number){
-  //console.log("the selected value is " + value, position);
+  console.log("the selected value is " + value, position);
   let old_val = this.verification_picks[position-1];
   this.verification_picks[position-1] = value;
+  switch(value){
+    case "125":
+      this.verification_picks_names[position-1] = this.wSeeds[0][position-1].name;
+    break;
+    case "133":
+      this.verification_picks_names[position-1] = this.wSeeds[1][position-1].name;
+    break;
+    case "141":
+      this.verification_picks_names[position-1] = this.wSeeds[2][position-1].name;
+    break;
+    case "149":
+      this.verification_picks_names[position-1] = this.wSeeds[3][position-1].name;
+    break;
+    case "157":
+      this.verification_picks_names[position-1] = this.wSeeds[4][position-1].name;
+    break;
+    case "165":
+      this.verification_picks_names[position-1] = this.wSeeds[5][position-1].name;
+    break;
+    case "174":
+      this.verification_picks_names[position-1] = this.wSeeds[6][position-1].name;
+    break;
+    case "184":
+      this.verification_picks_names[position-1] = this.wSeeds[7][position-1].name;
+    break;
+    case "197":
+      this.verification_picks_names[position-1] = this.wSeeds[8][position-1].name;
+    break;
+    case "285":
+      this.verification_picks_names[position-1] = this.wSeeds[9][position-1].name;
+   break;
+  }
   //console.log("Old Value: ", old_val);
   //console.log("VP: ", this.verification_picks);
 
@@ -289,6 +363,13 @@ verifyAllWeightsSelected(value:string, position:number){
     }
   }
 }
+
+
+updateFireIndexTest(){
+  this.entryService.updateFireIndex("y1S2XNMMwqh8vOOMrkgW");
+  //console.log("I am here inc up");
+}
+
 
   saveEntry(): void {
     if (this.entryForm.valid) {
